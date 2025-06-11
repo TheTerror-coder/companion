@@ -1,6 +1,5 @@
 package ft.project.companion.ui.theme
 
-import android.R
 import android.app.Activity
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
@@ -15,7 +14,6 @@ import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
-
 
 private val DarkColorScheme = darkColorScheme(
     primary = EerieBlack,
@@ -72,7 +70,7 @@ fun CompanionTheme(
 
     MaterialTheme(
         colorScheme = colorScheme,
-        typography = Typography,
+        typography = CompanionTypography,
         content = content
     )
 }
