@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -15,6 +16,7 @@ import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.runtime.getValue
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
@@ -32,16 +34,18 @@ fun FortyTwoShieldComponent(
     fortyTwoShieldColor: Color = MaterialTheme.colorScheme.secondary,
     pressedFortyTwoShieldColor: Color = MaterialTheme.colorScheme.onPrimary,
 ){
-    val pressed = viewModel.fortyTwoShieldIsPressed.value
-    val navigateToHome = viewModel.navigateToHome.value
+    val pressed by viewModel.fortyTwoShieldIsPressed
+    val navigateToHome by viewModel.navigateToHome
 
     var currentFortyTwoShieldColor = remember (pressed, pressedFortyTwoShieldColor, fortyTwoShieldColor) {
         if (pressed) pressedFortyTwoShieldColor else fortyTwoShieldColor
     }
 
     if (navigateToHome) {
-        navController.navigate(Home)
-        viewModel.navigatedToHome()
+        LaunchedEffect(Unit) {
+            navController.navigate(Home)
+            viewModel.navigatedToHome()
+        }
     }
 
     Box(
