@@ -44,10 +44,12 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 
 
 @Composable
 fun LoginScreen(
+    navController: NavController,
     modifier: Modifier = Modifier,
     textFieldColorsCustomConfig: TextFieldColors = TextFieldDefaults.colors(
         focusedContainerColor = Color.Transparent,

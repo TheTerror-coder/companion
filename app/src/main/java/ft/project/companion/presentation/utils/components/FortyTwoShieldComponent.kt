@@ -17,6 +17,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
+import ft.project.companion.presentation.navigation.Home
 import ft.project.companion.presentation.utils.components.companionvectorspack.MyIconPack
 import ft.project.companion.presentation.utils.components.companionvectorspack.myiconpack.Fortytwo
 import ft.project.companion.presentation.utils.components.companionvectorspack.myiconpack.Shield
@@ -24,15 +26,22 @@ import ft.project.companion.presentation.viewmodels.FortyTwoShieldViewModel
 
 @Composable
 fun FortyTwoShieldComponent(
+    navController: NavController,
     modifier: Modifier = Modifier,
     viewModel: FortyTwoShieldViewModel,
     fortyTwoShieldColor: Color = MaterialTheme.colorScheme.secondary,
     pressedFortyTwoShieldColor: Color = MaterialTheme.colorScheme.onPrimary,
 ){
     val pressed = viewModel.fortyTwoShieldIsPressed.value
+    val navigateToHome = viewModel.navigateToHome.value
 
     var currentFortyTwoShieldColor = remember (pressed, pressedFortyTwoShieldColor, fortyTwoShieldColor) {
         if (pressed) pressedFortyTwoShieldColor else fortyTwoShieldColor
+    }
+
+    if (navigateToHome) {
+        navController.navigate(Home)
+        viewModel.navigatedToHome()
     }
 
     Box(
@@ -67,14 +76,14 @@ fun FortyTwoShieldComponent(
     }
 }
 
-@Preview
-@Composable
-private fun Preview() {
-    Box(
-        modifier = Modifier
-    ) {
-        val viewModel: FortyTwoShieldViewModel = viewModel()
-
-        FortyTwoShieldComponent(viewModel = viewModel)
-    }
-}
+//@Preview
+//@Composable
+//private fun Preview() {
+//    Box(
+//        modifier = Modifier
+//    ) {
+//        val viewModel: FortyTwoShieldViewModel = viewModel()
+//
+//        FortyTwoShieldComponent(viewModel = viewModel)
+//    }
+//}

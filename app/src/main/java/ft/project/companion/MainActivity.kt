@@ -11,7 +11,8 @@ import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import ft.project.companion.presentation.composables.authentication.FortyTwoShieldScreen
+import ft.project.companion.presentation.composables.authentication.AuthenticationScreen
+import ft.project.companion.presentation.navigation.CompanionNavigation
 import ft.project.companion.ui.theme.CompanionTheme
 
 
@@ -35,7 +36,7 @@ class MainActivity : ComponentActivity() {
                         .fillMaxSize()
                         .statusBarsPadding(),
                 ) {
-                    FortyTwoShieldScreen()
+                    CompanionNavigation()
                 }
             }
         }
@@ -105,7 +106,7 @@ fun GreetingPreview() {
                 .fillMaxSize()
                 .statusBarsPadding(),
         ) {
-            FortyTwoShieldScreen()
+            CompanionNavigation()
         }
     }
 }
