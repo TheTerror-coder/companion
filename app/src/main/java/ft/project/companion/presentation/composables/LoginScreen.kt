@@ -1,4 +1,4 @@
-package ft.project.companion.presentation.composables.authentication
+package ft.project.companion.presentation.composables
 
 import android.util.Log
 import androidx.compose.foundation.clickable

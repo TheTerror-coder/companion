@@ -1,4 +1,4 @@
-package ft.project.companion.presentation.composables.authentication
+package ft.project.companion.presentation.composables
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
