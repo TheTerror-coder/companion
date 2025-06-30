@@ -1,16 +1,12 @@
-package ft.project.companion.presentation.composables
+package ft.project.companion.presentation.authentication
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import ft.project.companion.presentation.utils.components.FortyTwoShieldComponent
-import ft.project.companion.presentation.viewmodels.AuthenticationState
-import ft.project.companion.presentation.viewmodels.FortyTwoShieldViewModel
-import kotlinx.coroutines.flow.StateFlow
 
 @Composable
 fun AuthenticationScreen(

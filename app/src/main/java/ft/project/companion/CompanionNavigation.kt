@@ -1,23 +1,20 @@
-package ft.project.companion.presentation.navigation
+package ft.project.companion
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import ft.project.companion.presentation.composables.AuthenticationScreen
-import ft.project.companion.presentation.composables.AuthenticationUiAction
-import ft.project.companion.presentation.composables.HomeScreen
-import ft.project.companion.presentation.composables.LoginScreen
-import ft.project.companion.presentation.viewmodels.AuthenticationState
-import ft.project.companion.presentation.viewmodels.FortyTwoShieldViewModel
-import kotlinx.coroutines.flow.StateFlow
+import ft.project.companion.presentation.authentication.AuthenticationScreen
+import ft.project.companion.presentation.authentication.AuthenticationUiAction
+import ft.project.companion.presentation.home.HomeScreen
+import ft.project.companion.presentation.authentication.AuthenticationState
 import kotlinx.serialization.Serializable
 
 @Serializable
-object Authentication
+object AuthenticationRoute
 @Serializable
-object Home
+object HomeRoute
 
 @Composable
 fun CompanionNavigation(
@@ -27,14 +24,14 @@ fun CompanionNavigation(
 ) {
     val navController = rememberNavController()
 
-    NavHost(navController = navController, startDestination = Authentication) {
-        composable<Authentication> { AuthenticationScreen(
+    NavHost(navController = navController, startDestination = AuthenticationRoute) {
+        composable<AuthenticationRoute> { AuthenticationScreen(
             navController = navController,
             authUiState = authUiState,
             onAuthUiAction = onAuthUiAction,
             onFortyTwoShieldClick = onFortyTwoShieldClick
         ) }
-        composable<Home> { HomeScreen(navController = navController) }
+        composable<HomeRoute> { HomeScreen(navController = navController) }
 //        HomeScreen(navController = navController)
     }
 }

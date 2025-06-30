@@ -1,22 +1,12 @@
-package ft.project.companion.presentation.viewmodels
+package ft.project.companion.presentation.authentication
 
 import android.app.Application
 import android.content.Intent
 import android.net.Uri
 import android.util.Log
-import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.mutableStateOf
-import androidx.lifecycle.ViewModel
-import androidx.navigation.NavController
 import dagger.hilt.android.lifecycle.HiltViewModel
-import androidx.compose.runtime.State
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
 import androidx.lifecycle.AndroidViewModel
-import dagger.hilt.android.internal.Contexts.getApplication
 import ft.project.companion.TAG
-import ft.project.companion.presentation.composables.AuthenticationScreen
-import ft.project.companion.presentation.composables.AuthenticationUiAction
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow

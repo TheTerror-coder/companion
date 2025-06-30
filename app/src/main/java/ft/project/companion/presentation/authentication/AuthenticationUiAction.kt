@@ -1,4 +1,4 @@
-package ft.project.companion.presentation.composables
+package ft.project.companion.presentation.authentication
 
 sealed class AuthenticationUiAction {
     object onFortyTwoShieldTap: AuthenticationUiAction()

@@ -15,20 +15,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.input.pointer.pointerInput
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.runtime.getValue
-import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import ft.project.companion.TAG
-import ft.project.companion.presentation.composables.AuthenticationUiAction
-import ft.project.companion.presentation.navigation.Home
+import ft.project.companion.presentation.authentication.AuthenticationUiAction
+import ft.project.companion.HomeRoute
 import ft.project.companion.presentation.utils.components.companionvectorspack.MyIconPack
 import ft.project.companion.presentation.utils.components.companionvectorspack.myiconpack.Fortytwo
 import ft.project.companion.presentation.utils.components.companionvectorspack.myiconpack.Shield
-import ft.project.companion.presentation.viewmodels.AuthenticationState
-import ft.project.companion.presentation.viewmodels.FortyTwoShieldViewModel
+import ft.project.companion.presentation.authentication.AuthenticationState
 
 @Composable
 fun FortyTwoShieldComponent(
@@ -50,7 +45,7 @@ fun FortyTwoShieldComponent(
 
     if (navigateToHome) {
         LaunchedEffect(Unit) {
-            navController.navigate(Home)
+            navController.navigate(HomeRoute)
             onAuthUiAction(AuthenticationUiAction.navigatedToHome)
         }
     }

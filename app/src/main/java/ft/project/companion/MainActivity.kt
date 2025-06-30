@@ -1,8 +1,6 @@
 package ft.project.companion
 
-import android.app.Activity
 import android.content.Intent
-import android.nfc.Tag
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.ComponentActivity
@@ -10,23 +8,16 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.activity.result.registerForActivityResult
 import androidx.activity.viewModels
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.material3.Surface
-import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.viewmodel.compose.viewModel
 import dagger.hilt.android.AndroidEntryPoint
-import ft.project.companion.presentation.composables.AuthenticationUiAction
-import ft.project.companion.presentation.navigation.CompanionNavigation
-import ft.project.companion.presentation.viewmodels.FortyTwoShieldViewModel
+import ft.project.companion.presentation.authentication.AuthenticationUiAction
+import ft.project.companion.presentation.authentication.FortyTwoShieldViewModel
 import ft.project.companion.ui.theme.CompanionTheme
 import kotlin.getValue
 

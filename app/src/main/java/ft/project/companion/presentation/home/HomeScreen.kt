@@ -1,4 +1,4 @@
-package ft.project.companion.presentation.composables
+package ft.project.companion.presentation.home
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
