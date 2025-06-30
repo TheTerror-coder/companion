@@ -31,7 +31,6 @@ fun FortyTwoShieldComponent(
     modifier: Modifier = Modifier,
     authUiState: AuthenticationState,
     onAuthUiAction: (AuthenticationUiAction) -> Unit,
-//    viewModel: FortyTwoShieldViewModel,
     fortyTwoShieldColor: Color = MaterialTheme.colorScheme.secondary,
     pressedFortyTwoShieldColor: Color = MaterialTheme.colorScheme.onPrimary,
     onFortyTwoShieldClick: () -> Unit,

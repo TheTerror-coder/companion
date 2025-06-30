@@ -17,7 +17,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import dagger.hilt.android.AndroidEntryPoint
 import ft.project.companion.presentation.authentication.AuthenticationUiAction
-import ft.project.companion.presentation.authentication.FortyTwoShieldViewModel
+import ft.project.companion.presentation.authentication.AuthenticationViewModel
 import ft.project.companion.ui.theme.CompanionTheme
 import kotlin.getValue
 
@@ -27,7 +27,7 @@ const val TAG = "MainActivity"
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
-    private val _viewModel: FortyTwoShieldViewModel by viewModels<FortyTwoShieldViewModel>()
+    private val _viewModel: AuthenticationViewModel by viewModels<AuthenticationViewModel>()
 
     lateinit private var _authActivityLauncher: ActivityResultLauncher<Intent>
 

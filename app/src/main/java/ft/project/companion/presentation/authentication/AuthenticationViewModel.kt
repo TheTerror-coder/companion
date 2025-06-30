@@ -44,7 +44,7 @@ data class AuthenticationState(
 )
 
 @HiltViewModel
-class FortyTwoShieldViewModel @Inject constructor(application: Application): AndroidViewModel(application) {
+class AuthenticationViewModel @Inject constructor(application: Application): AndroidViewModel(application) {
 
     private val _authServiceConfig: AuthorizationServiceConfiguration = AuthorizationServiceConfiguration(
         Uri.parse(UltimApiAuthConfig.AUTH_URI),
