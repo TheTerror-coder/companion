@@ -1,28 +1,72 @@
 package ft.project.companion
 
+import android.app.Activity
+import android.content.Intent
+import android.nfc.Tag
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.result.registerForActivityResult
+import androidx.activity.viewModels
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewmodel.compose.viewModel
+import dagger.hilt.android.AndroidEntryPoint
+import ft.project.companion.presentation.composables.AuthenticationUiAction
 import ft.project.companion.presentation.navigation.CompanionNavigation
+import ft.project.companion.presentation.viewmodels.FortyTwoShieldViewModel
 import ft.project.companion.ui.theme.CompanionTheme
+import kotlin.getValue
 
 
-private const val TAG = "MainActivity"
+const val TAG = "MainActivity"
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+
+    private val _viewModel: FortyTwoShieldViewModel by viewModels<FortyTwoShieldViewModel>()
+
+    lateinit private var _authActivityLauncher: ActivityResultLauncher<Intent>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge()
         super.onCreate(savedInstanceState)
-        Log.d(TAG, "onStart called")
+        Log.d(TAG, "onCreate called")
+
+        _authActivityLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+            result ->
+            Log.d(TAG, "****************registerForActivityResult(): callback entered")
+            val intent = result.data ?: return@registerForActivityResult
+            _viewModel.performAuthTokenExchange(intent) {
+                tokenResp, tokenEx ->
+
+                Log.d(TAG, "****************: token exchange is done")
+                _viewModel.updateAuthState(tokenResp, tokenEx)
+
+                if (tokenResp != null){
+                    Log.d(TAG, "******************access token: ${tokenResp.accessToken}")
+                    _viewModel.onAuthenticationUiAction(AuthenticationUiAction.navigateToHome)
+                }
+                else {
+                    Log.d(TAG, "**********************auth exception occured: ${tokenEx?.localizedMessage}")
+                }
+
+            }
+
+        }
+
 
         setContent {
             CompanionTheme (
@@ -35,7 +79,19 @@ class MainActivity : ComponentActivity() {
                         .fillMaxSize()
                         .statusBarsPadding(),
                 ) {
-                    CompanionNavigation()
+                    val authUiState by _viewModel.uiState.collectAsState()
+
+                    CompanionNavigation(
+                        authUiState = authUiState,
+                        onAuthUiAction = _viewModel::onAuthenticationUiAction,
+                        onFortyTwoShieldClick = {
+                Log.d(TAG, "****************onFortyTwoShieldClick: lamda is entered")
+                            _authActivityLauncher.launch(_viewModel.authService.getAuthorizationRequestIntent(
+                                _viewModel.authRequest
+                            ))
+                Log.d(TAG, "****************onFortyTwoShieldClick: lamda is exited")
+                        }
+                    )
                 }
             }
         }
@@ -92,20 +148,20 @@ class MainActivity : ComponentActivity() {
 //    )
 //}
 //
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    CompanionTheme (
-        dynamicColor = false
-    ) {
-//                LoginPage()
-        Surface (
-//                    color = MaterialTheme.colorScheme.background,
-            modifier = Modifier
-                .fillMaxSize()
-                .statusBarsPadding(),
-        ) {
-            CompanionNavigation()
-        }
-    }
-}
+//@Preview(showBackground = true)
+//@Composable
+//fun GreetingPreview() {
+//    CompanionTheme (
+//        dynamicColor = false
+//    ) {
+////                LoginPage()
+//        Surface (
+////                    color = MaterialTheme.colorScheme.background,
+//            modifier = Modifier
+//                .fillMaxSize()
+//                .statusBarsPadding(),
+//        ) {
+//            CompanionNavigation()
+//        }
+//    }
+//}

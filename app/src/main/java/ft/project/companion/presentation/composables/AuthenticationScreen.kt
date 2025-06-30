@@ -8,16 +8,29 @@ import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import ft.project.companion.presentation.utils.components.FortyTwoShieldComponent
+import ft.project.companion.presentation.viewmodels.AuthenticationState
 import ft.project.companion.presentation.viewmodels.FortyTwoShieldViewModel
+import kotlinx.coroutines.flow.StateFlow
 
 @Composable
-fun AuthenticationScreen(navController: NavController, modifier: Modifier = Modifier) {
+fun AuthenticationScreen(
+    navController: NavController,
+    authUiState: AuthenticationState,
+    onAuthUiAction: (AuthenticationUiAction) -> Unit,
+    modifier: Modifier = Modifier,
+    onFortyTwoShieldClick: () -> Unit,
+) {
     Column (
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        val viewModel: FortyTwoShieldViewModel = viewModel()
+//        val viewModel: FortyTwoShieldViewModel = viewModel()
 
-        FortyTwoShieldComponent(navController= navController, viewModel = viewModel)
+        FortyTwoShieldComponent(
+            navController = navController,
+            authUiState = authUiState,
+            onAuthUiAction = onAuthUiAction,
+            onFortyTwoShieldClick = onFortyTwoShieldClick
+        )
     }
 }

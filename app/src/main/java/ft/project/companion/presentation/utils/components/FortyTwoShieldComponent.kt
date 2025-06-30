@@ -1,5 +1,6 @@
 package ft.project.companion.presentation.utils.components
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Box
@@ -20,22 +21,28 @@ import androidx.compose.runtime.getValue
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
+import ft.project.companion.TAG
+import ft.project.companion.presentation.composables.AuthenticationUiAction
 import ft.project.companion.presentation.navigation.Home
 import ft.project.companion.presentation.utils.components.companionvectorspack.MyIconPack
 import ft.project.companion.presentation.utils.components.companionvectorspack.myiconpack.Fortytwo
 import ft.project.companion.presentation.utils.components.companionvectorspack.myiconpack.Shield
+import ft.project.companion.presentation.viewmodels.AuthenticationState
 import ft.project.companion.presentation.viewmodels.FortyTwoShieldViewModel
 
 @Composable
 fun FortyTwoShieldComponent(
     navController: NavController,
     modifier: Modifier = Modifier,
-    viewModel: FortyTwoShieldViewModel,
+    authUiState: AuthenticationState,
+    onAuthUiAction: (AuthenticationUiAction) -> Unit,
+//    viewModel: FortyTwoShieldViewModel,
     fortyTwoShieldColor: Color = MaterialTheme.colorScheme.secondary,
     pressedFortyTwoShieldColor: Color = MaterialTheme.colorScheme.onPrimary,
+    onFortyTwoShieldClick: () -> Unit,
 ){
-    val pressed by viewModel.fortyTwoShieldIsPressed
-    val navigateToHome by viewModel.navigateToHome
+    val pressed = authUiState.fortyTwoShieldIsPressed
+    val navigateToHome = authUiState.navigateToHome
 
     var currentFortyTwoShieldColor = remember (pressed, pressedFortyTwoShieldColor, fortyTwoShieldColor) {
         if (pressed) pressedFortyTwoShieldColor else fortyTwoShieldColor
@@ -44,7 +51,7 @@ fun FortyTwoShieldComponent(
     if (navigateToHome) {
         LaunchedEffect(Unit) {
             navController.navigate(Home)
-            viewModel.navigatedToHome()
+            onAuthUiAction(AuthenticationUiAction.navigatedToHome)
         }
     }
 
@@ -62,12 +69,18 @@ fun FortyTwoShieldComponent(
                 .pointerInput(Unit){
                     detectTapGestures(
                         onPress = {
-                            viewModel.setFortyTwoShieldPressed(true)
+                            onAuthUiAction(AuthenticationUiAction.fortyTwoShieldPressed)
                             tryAwaitRelease()
-                            viewModel.setFortyTwoShieldPressed(false)
+                            onAuthUiAction(AuthenticationUiAction.fortyTwoShieldUnpressed)
                         },
                         onTap = {
-                            viewModel.onFortyTwoShieldTap()
+                            if (authUiState.authState.isAuthorized){
+                                onAuthUiAction(AuthenticationUiAction.onFortyTwoShieldTap)
+                            }
+                            else{
+                                onFortyTwoShieldClick()
+                                Log.d(TAG, "******************FortyTwoShieldComponent: step over onFortyTwoShieldClick lamda")
+                            }
                         }
                     )
                 }

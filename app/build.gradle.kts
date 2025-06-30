@@ -19,6 +19,9 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        //customs
+        manifestPlaceholders["appAuthRedirectScheme"] = "com.companion.jfaye"
     }
 
     buildTypes {
@@ -79,6 +82,7 @@ dependencies {
     androidTestImplementation(libs.androidx.navigation.testing)
     // JSON serialization library, works with the Kotlin serialization plugin
     implementation(libs.kotlinx.serialization.json)
+    implementation(libs.appauth)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
