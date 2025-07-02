@@ -20,7 +20,6 @@ fun AuthenticationScreen(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-//        val viewModel: FortyTwoShieldViewModel = viewModel()
 
         FortyTwoShieldComponent(
             navController = navController,

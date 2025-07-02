@@ -32,14 +32,6 @@ fun CompanionNavigation(
             onFortyTwoShieldClick = onFortyTwoShieldClick
         ) }
         composable<HomeRoute> { HomeScreen(navController = navController) }
-//        HomeScreen(navController = navController)
     }
 }
 
-@Preview
-@Composable
-fun CompanionNavigationPreview() {
-    val navController = rememberNavController()
-
-    HomeScreen(navController = navController)
-}

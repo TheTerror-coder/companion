@@ -16,7 +16,6 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import dagger.hilt.android.AndroidEntryPoint
-import ft.project.companion.presentation.authentication.AuthenticationUiAction
 import ft.project.companion.presentation.authentication.AuthenticationViewModel
 import ft.project.companion.ui.theme.CompanionTheme
 import kotlin.getValue
@@ -35,26 +34,14 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         super.onCreate(savedInstanceState)
         Log.d(TAG, "onCreate called")
+        Log.d(TAG, "***********DEBUG: client_id=${BuildConfig.CLIENT_ID}")
+        Log.d(TAG, "***********DEBUG: client_secret=${BuildConfig.CLIENT_SECRET}")
 
         _authActivityLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
             result ->
             Log.d(TAG, "****************registerForActivityResult(): callback entered")
             val intent = result.data ?: return@registerForActivityResult
-            _viewModel.performAuthTokenExchange(intent) {
-                tokenResp, tokenEx ->
-
-                Log.d(TAG, "****************: token exchange is done")
-                _viewModel.updateAuthState(tokenResp, tokenEx)
-
-                if (tokenResp != null){
-                    Log.d(TAG, "******************access token: ${tokenResp.accessToken}")
-                    _viewModel.onAuthenticationUiAction(AuthenticationUiAction.navigateToHome)
-                }
-                else {
-                    Log.d(TAG, "**********************auth exception occured: ${tokenEx?.localizedMessage}")
-                }
-
-            }
+            _viewModel.performAuthTokenExchange(intent)
 
         }
 
@@ -63,7 +50,6 @@ class MainActivity : ComponentActivity() {
             CompanionTheme (
                 dynamicColor = false
             ) {
-//                LoginPage()
                 Surface (
 //                    color = MaterialTheme.colorScheme.background,
                     modifier = Modifier
@@ -119,40 +105,3 @@ class MainActivity : ComponentActivity() {
     }
 
 }
-//            CompanionTheme {
-//                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-//                    Greeting(
-//                        name = "Android",
-//                        modifier = Modifier.padding(innerPadding)
-//                    )
-//                }
-//            }
-//        }
-//    }
-//}
-
-//@Composable
-//fun Greeting(name: String, modifier: Modifier = Modifier) {
-//    Text(
-//        text = "Hello $name!",
-//        modifier = modifier
-//    )
-//}
-//
-//@Preview(showBackground = true)
-//@Composable
-//fun GreetingPreview() {
-//    CompanionTheme (
-//        dynamicColor = false
-//    ) {
-////                LoginPage()
-//        Surface (
-////                    color = MaterialTheme.colorScheme.background,
-//            modifier = Modifier
-//                .fillMaxSize()
-//                .statusBarsPadding(),
-//        ) {
-//            CompanionNavigation()
-//        }
-//    }
-//}

@@ -116,11 +116,3 @@ fun HomeScreen(
         }
     }
 }
-
-@Preview
-@Composable
-fun HomeScreenPreview(navController: NavController? = null) {
-    val navController = rememberNavController()
-
-    HomeScreen(navController)
-}
