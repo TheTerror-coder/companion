@@ -25,7 +25,6 @@ import ft.project.companion.presentation.utils.components.WalletStoneComponent
 
 @Composable
 fun HomeScreen(
-    navController: NavController,
     modifier: Modifier = Modifier
 ) {
     Column(

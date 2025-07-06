@@ -28,7 +28,7 @@ class MainActivity : ComponentActivity() {
 
     private val _viewModel: AuthenticationViewModel by viewModels<AuthenticationViewModel>()
 
-    lateinit private var _authActivityLauncher: ActivityResultLauncher<Intent>
+    private lateinit var _authActivityLauncher: ActivityResultLauncher<Intent>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge()

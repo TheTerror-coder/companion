@@ -27,25 +27,24 @@ import ft.project.companion.presentation.authentication.AuthenticationState
 
 @Composable
 fun FortyTwoShieldComponent(
-    navController: NavController,
     modifier: Modifier = Modifier,
     authUiState: AuthenticationState,
     onAuthUiAction: (AuthenticationUiAction) -> Unit,
     fortyTwoShieldColor: Color = MaterialTheme.colorScheme.secondary,
     pressedFortyTwoShieldColor: Color = MaterialTheme.colorScheme.onPrimary,
     onFortyTwoShieldClick: () -> Unit,
+    onHomeNavigate: () -> Unit,
 ){
     val pressed = authUiState.fortyTwoShieldIsPressed
-    val navigateToHome = authUiState.navigateToHome
+    val authorized = authUiState.isAuthorized
 
     var currentFortyTwoShieldColor = remember (pressed, pressedFortyTwoShieldColor, fortyTwoShieldColor) {
         if (pressed) pressedFortyTwoShieldColor else fortyTwoShieldColor
     }
 
-    if (navigateToHome) {
+    if (authorized) {
         LaunchedEffect(Unit) {
-            navController.navigate(HomeRoute)
-            onAuthUiAction(AuthenticationUiAction.navigatedToHome)
+            onHomeNavigate()
         }
     }
 
@@ -68,8 +67,8 @@ fun FortyTwoShieldComponent(
                             onAuthUiAction(AuthenticationUiAction.fortyTwoShieldUnpressed)
                         },
                         onTap = {
-                            if (authUiState.authState.isAuthorized){
-                                onAuthUiAction(AuthenticationUiAction.onFortyTwoShieldTap)
+                            if (authUiState.isAuthorized){
+                                onHomeNavigate()
                             }
                             else{
                                 onFortyTwoShieldClick()

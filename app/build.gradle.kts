@@ -114,4 +114,10 @@ dependencies {
     // dagger/hilt
     implementation(libs.hilt.android)
     ksp(libs.hilt.android.compiler)
+
+    // Preferences DataStore (SharedPreferences like APIs)
+    implementation(libs.androidx.datastore.preferences)
+    implementation(libs.androidx.datastore.preferences.core)
+    // Typed DataStore (Typed API surface, such as Proto)
+    implementation(libs.androidx.datastore.core)
 }
