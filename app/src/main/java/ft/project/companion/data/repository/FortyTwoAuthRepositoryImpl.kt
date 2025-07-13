@@ -3,14 +3,24 @@ package ft.project.companion.data.repository
 import android.content.Intent
 import android.util.Log
 import androidx.core.net.toUri
+import androidx.lifecycle.viewModelScope
 import ft.project.companion.TAG
+import ft.project.companion.data.datasource.datastore.FortyTwoAuthDataStore
 import ft.project.companion.data.datasource.provision.FortyTwoAuthFromContextProvider
 import ft.project.companion.data.remote.config.UltimApiAuthConfig
 import ft.project.companion.domain.repository.FortyTwoAuthRepository
+import ft.project.companion.presentation.authentication.AuthenticationViewModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 import net.openid.appauth.AuthState
 import net.openid.appauth.AuthorizationException
 import net.openid.appauth.AuthorizationRequest
@@ -23,6 +33,7 @@ import javax.inject.Inject
 
 class FortyTwoAuthRepositoryImpl @Inject constructor(
     private val localDataSource: FortyTwoAuthFromContextProvider,
+    private val fortyTwoAuthDataStore: FortyTwoAuthDataStore,
 ): FortyTwoAuthRepository {
 
     private val _authServiceConfig: AuthorizationServiceConfiguration =
@@ -107,14 +118,35 @@ class FortyTwoAuthRepositoryImpl @Inject constructor(
             _authService.performTokenRequest(tokenRequest, clientAuth){
                     tokenResp, tokenEx ->
 
-                Log.d(TAG, "****************exchangeToken: token exchange is done")
+                Log.d(TAG, "FortyTwoAuthRepositoryImpl****************exchangeToken(): token exchange is done")
                 updateAuthState(tokenResp, tokenEx)
 
                 if (tokenResp != null){
-                    Log.d(TAG, "******************exchangeToken:*******access token: ${tokenResp.accessToken}")
+                    CoroutineScope(Dispatchers.IO).launch {
+                        Log.d(
+                            TAG,
+                            "FortyTwoAuthRepositoryImpl" +
+                                    "******************exchangeToken(): before datastore update: dataStore access token field contains " +
+                                    "${
+                                        fortyTwoAuthDataStore.getAccessToken().first()
+                                    }"
+                        )
+                    }
+                    CoroutineScope(Dispatchers.IO).launch {
+                        Log.d(TAG, "FortyTwoAuthRepositoryImpl******************exchangeToken(): updating access token field with value: ${tokenResp.accessToken}")
+                        fortyTwoAuthDataStore.updateAccessToken(tokenResp.accessToken)
+                    }
+                    CoroutineScope(Dispatchers.IO).launch {
+                        fortyTwoAuthDataStore.getAccessToken()
+                            .onEach { value ->
+                                Log.d(TAG, "FortyTwoAuthRepositoryImpl******************exchangeToken(): after datastore update: dataStore access token field contains $value")
+                            }
+                            .collect()
+                    }
+
                 }
                 else {
-                    Log.d(TAG, "**********************exchangeToken:************auth exception occured: ${tokenEx?.localizedMessage}")
+                    Log.d(TAG, "FortyTwoAuthRepositoryImpl**********************exchangeToken():************auth exception occured: ${tokenEx?.localizedMessage}")
                 }
             }
         }

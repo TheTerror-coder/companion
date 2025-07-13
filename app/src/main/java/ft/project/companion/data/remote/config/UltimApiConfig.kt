@@ -4,6 +4,7 @@ import ft.project.companion.BuildConfig
 import net.openid.appauth.ResponseTypeValues
 
 object UltimApiAuthConfig {
+    const val BASE_ENDPOINT = "https://api.intra.42.fr/v2/"
     const val AUTH_URI = "https://api.intra.42.fr/oauth/authorize"
     const val TOKEN_URI = "https://api.intra.42.fr/oauth/token"
     const val RESPONSE_TYPE = ResponseTypeValues.CODE

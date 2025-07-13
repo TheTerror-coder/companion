@@ -1,6 +1,8 @@
 package ft.project.companion
 
 import androidx.compose.runtime.Composable
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -8,6 +10,7 @@ import ft.project.companion.presentation.authentication.AuthenticationScreen
 import ft.project.companion.presentation.authentication.AuthenticationState
 import ft.project.companion.presentation.authentication.AuthenticationUiAction
 import ft.project.companion.presentation.home.HomeScreen
+import ft.project.companion.presentation.home.HomeViewModel
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -35,6 +38,7 @@ fun CompanionNavigation(
             )
         }
         composable<HomeRoute> {
+            val viewModel: HomeViewModel = hiltViewModel()
             HomeScreen()
         }
     }

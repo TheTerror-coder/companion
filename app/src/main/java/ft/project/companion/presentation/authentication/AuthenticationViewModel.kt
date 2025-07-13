@@ -6,6 +6,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import ft.project.companion.TAG
+import ft.project.companion.data.datasource.datastore.FortyTwoAuthDataStore
+import ft.project.companion.domain.model.UserModel
 import ft.project.companion.domain.repository.FortyTwoAuthRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -22,11 +24,13 @@ import javax.inject.Inject
 data class AuthenticationState(
     val fortyTwoShieldIsPressed: Boolean = false,
     val isAuthorized: Boolean = false,
+    val user: UserModel? = null,
 )
 
 @HiltViewModel
 class AuthenticationViewModel @Inject constructor(
-    private val fortyTwoAuthRepository: FortyTwoAuthRepository
+    private val fortyTwoAuthRepository: FortyTwoAuthRepository,
+    private  val fortyTwoAuthDataStore: FortyTwoAuthDataStore,
 ): ViewModel() {
 
     private val _uiState = MutableStateFlow(AuthenticationState())

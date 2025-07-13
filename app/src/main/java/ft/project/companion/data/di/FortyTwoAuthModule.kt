@@ -15,18 +15,6 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-abstract class FortyTwoAuthModules{
-
-    @Binds
-    @Singleton
-    abstract fun bindFortyTwoAuth(
-        fortyTwoAuthRepositoryImpl: FortyTwoAuthRepositoryImpl
-    ): FortyTwoAuthRepository
-
-}
-
-@Module
-@InstallIn(SingletonComponent::class)
 object AppModule {
 
     @Provides

@@ -120,4 +120,7 @@ dependencies {
     implementation(libs.androidx.datastore.preferences.core)
     // Typed DataStore (Typed API surface, such as Proto)
     implementation(libs.androidx.datastore.core)
+    //retrofit
+    implementation(libs.retrofit)
+    implementation(libs.converter.kotlinx.serialization)
 }

@@ -5,25 +5,24 @@ import androidx.datastore.core.IOException
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import dagger.hilt.android.qualifiers.ApplicationContext
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.map
-import net.openid.appauth.AuthState
+import kotlinx.coroutines.withContext
 
 class FortyTwoAuthDataStore(@ApplicationContext val context: Context) {
 
-    private val _ACCESS_TOKEN_KEY = stringPreferencesKey("access_token")
+    private val _accessTokenKey = stringPreferencesKey("access_token")
 
     /**
      * if no access token exists, saves this one
      * else updates the existing one
      */
-    suspend fun updateAccesToken(authState: AuthState){
+    suspend fun updateAccessToken(token: String?){
         try {
             context.companionDataStore.edit{ authDataStore ->
-                val accessToken = authState.accessToken
-                if (accessToken != null){
-                    authDataStore[_ACCESS_TOKEN_KEY] = accessToken
+                if (token != null){
+                    authDataStore[_accessTokenKey] = token
                 }
             }
         } catch (e: IOException){
@@ -34,11 +33,11 @@ class FortyTwoAuthDataStore(@ApplicationContext val context: Context) {
         }
     }
 
-    suspend fun getAccesToken(authState: AuthState): Flow<String?>{
-        val accessTokenFlow: Flow<String?> = context.companionDataStore.data.map { authPreferences ->
-            authPreferences[_ACCESS_TOKEN_KEY]
+    suspend fun getAccessToken(): Flow<String?> = withContext(Dispatchers.IO){
+
+        context.companionDataStore.data.map { authPreferences ->
+            authPreferences[_accessTokenKey]
         }
-        return (accessTokenFlow)
     }
 
 }
