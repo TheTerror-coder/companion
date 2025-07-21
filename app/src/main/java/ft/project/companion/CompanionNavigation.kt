@@ -1,6 +1,8 @@
 package ft.project.companion
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
@@ -39,7 +41,8 @@ fun CompanionNavigation(
         }
         composable<HomeRoute> {
             val viewModel: HomeViewModel = hiltViewModel()
-            HomeScreen()
+            val homeUiState by viewModel.homeUiState.collectAsState()
+            HomeScreen(homeUiState = homeUiState)
         }
     }
 }

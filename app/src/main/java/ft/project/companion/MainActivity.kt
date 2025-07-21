@@ -18,7 +18,6 @@ import androidx.compose.ui.Modifier
 import dagger.hilt.android.AndroidEntryPoint
 import ft.project.companion.presentation.authentication.AuthenticationViewModel
 import ft.project.companion.ui.theme.CompanionTheme
-import kotlin.getValue
 
 
 const val TAG = "MainActivity"
@@ -62,11 +61,11 @@ class MainActivity : ComponentActivity() {
                         authUiState = authUiState,
                         onAuthUiAction = _viewModel::onAuthenticationUiAction,
                         onFortyTwoShieldClick = {
-                Log.d(TAG, "****************onFortyTwoShieldClick: lamda is entered")
+                Log.d(TAG, "****************onFortyTwoShieldClick: lambda is entered")
                             _authActivityLauncher.launch(_viewModel.authService.getAuthorizationRequestIntent(
                                 _viewModel.authRequest
                             ))
-                Log.d(TAG, "****************onFortyTwoShieldClick: lamda is exited")
+                Log.d(TAG, "****************onFortyTwoShieldClick: lambda is exited")
                         }
                     )
                 }

@@ -4,12 +4,9 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import ft.project.companion.data.datasource.datastore.FortyTwoAuthDataStore
 import ft.project.companion.data.remote.api.UserApiService
 import ft.project.companion.data.remote.config.UltimApiAuthConfig
 import ft.project.companion.data.remote.network.LoggingOkHttpInterceptor
-import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.runBlocking
 import kotlinx.serialization.json.Json
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
@@ -26,26 +23,25 @@ annotation class UltimApiBaseUrlString
 @InstallIn(SingletonComponent::class)
 object NetworkModules {
 
-    @UltimApiBaseUrlString
     @Provides
+    @UltimApiBaseUrlString
     fun provideBaseUrl(): String = UltimApiAuthConfig.BASE_ENDPOINT
 
     @Provides
     @Singleton
-    fun provideOkHttpClient(fortyTwoAuthDataStore: FortyTwoAuthDataStore): OkHttpClient{
+    fun provideOkHttpClient(): OkHttpClient{
 
         return OkHttpClient.Builder()
             .addInterceptor { chain ->
 
-                val accessToken: String? = runBlocking {
-                    fortyTwoAuthDataStore.getAccessToken().first()
-                }
                 val request = chain.request().newBuilder()
-                    .header("Authorization", "Bearer $accessToken")
+//                    here I can add more default headers
+//                    .header("Authorization", "Bearer $accessToken")
                     .header("accept", "application/json")
                     .build()
                 chain.proceed(request)
             }
+//             here I add a request/response logger that I defined as a class in remote/network package
             .addInterceptor(LoggingOkHttpInterceptor())
             .build()
     }
@@ -68,6 +64,10 @@ object NetworkModules {
 
     @Provides
     @Singleton
-    fun provideUserApiService(retrofit: Retrofit): UserApiService = retrofit.create<UserApiService>(
-        UserApiService::class.java)
+    fun provideUserApiService(retrofit: Retrofit): UserApiService {
+//        Creates an implementation of the API endpoints defined by the UserApiService interface.
+        return retrofit.create(
+            UserApiService::class.java
+        )
+    }
 }

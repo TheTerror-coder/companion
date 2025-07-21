@@ -3,7 +3,6 @@ package ft.project.companion.presentation.utils.components
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -17,6 +16,7 @@ import ft.project.companion.presentation.utils.components.companionvectorspack.m
 
 @Composable
 fun LoginStoneComponent(
+    login: String,
     modifier: Modifier = Modifier,
     stoneColor: Color = MaterialTheme.colorScheme.onPrimary
 ) {
@@ -29,12 +29,12 @@ fun LoginStoneComponent(
             contentDescription = "",
             colorFilter = ColorFilter.tint(stoneColor)
         )
-        SingleLineTextComponent(text = "jfaye", style = MaterialTheme.typography.titleLarge, fontSize = 80.sp)
+        SingleLineTextComponent(text = login, style = MaterialTheme.typography.titleLarge, fontSize = 80.sp)
     }
 }
 
 @Preview
 @Composable
-fun Preview() {
-    LoginStoneComponent()
+fun LoginStoneComponentPreview() {
+    LoginStoneComponent(login = "jfaye")
 }

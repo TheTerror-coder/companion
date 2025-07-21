@@ -16,7 +16,7 @@ class LoggingOkHttpInterceptor: Interceptor {
                 "${chain.connection()} \n" +
                 "${request.headers} "
         )
-        Log.d(TAG, "Authorization: Bearer: ${request.header("Authorization")}")
+        Log.d(TAG, "Authorization: ${request.header("Authorization")}")
 
         val response = chain.proceed(request)
 

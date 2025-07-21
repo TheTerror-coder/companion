@@ -1,5 +1,6 @@
 package ft.project.companion.presentation.home
 
+import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -18,6 +19,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import ft.project.companion.TAG
 import ft.project.companion.presentation.utils.components.LocationStoneComponent
 import ft.project.companion.presentation.utils.components.LoginStoneComponent
 import ft.project.companion.presentation.utils.components.UserInfoFieldModelComponent
@@ -25,8 +27,19 @@ import ft.project.companion.presentation.utils.components.WalletStoneComponent
 
 @Composable
 fun HomeScreen(
+    homeUiState: HomeUiState,
     modifier: Modifier = Modifier
 ) {
+    Log.d(
+        TAG,
+        "-----------------user: ${homeUiState.user?.login} \n" +
+                "-----------------email: ${homeUiState.user?.email} \n" +
+                "-----------------mobile: ${homeUiState.user?.mobile} \n" +
+                "-----------------wallet: ${homeUiState.user?.wallet} \n" +
+                "-----------------location: ${homeUiState.user?.location} \n" +
+                "-----------------level: ${homeUiState.user?.level} "
+    )
+
     Column(
         modifier = modifier
             .fillMaxSize()
@@ -36,8 +49,6 @@ fun HomeScreen(
             alignment = Alignment.CenterVertically
         ),
     ) {
-        val wallet = "1000"
-        val location = "Lyon"
 
 /*Top Container*/
         Column(
@@ -50,7 +61,7 @@ fun HomeScreen(
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             //user login
-            LoginStoneComponent()
+            LoginStoneComponent(homeUiState.user?.login.toString())
 
             //user wallet & location
             Row (
@@ -64,7 +75,7 @@ fun HomeScreen(
                 ) {
                     WalletStoneComponent(
                         modifier = modifier,
-                        walletContent = wallet,
+                        walletContent = homeUiState.user?.wallet.toString(),
                     )
                 }
                 Box(
@@ -75,7 +86,7 @@ fun HomeScreen(
                 ) {
                     LocationStoneComponent(
                         modifier = modifier,
-                        locationContent = location,
+                        locationContent = homeUiState.user?.location.toString(),
                     )
                 }
             }
@@ -94,21 +105,21 @@ fun HomeScreen(
             //Email box
             UserInfoFieldModelComponent(
                 infoType = "Email",
-                infoContent = "johnnydoe12345@gmail.com",
+                infoContent = homeUiState.user?.email.toString(),
                 infoIcon = Icons.Filled.Email,
                 modifier = modifier,
             )
             //Mobile box
             UserInfoFieldModelComponent(
                 infoType = "Mobile",
-                infoContent = "+33 X XX XX XX XX",
+                infoContent = homeUiState.user?.mobile.toString(),
                 infoIcon = Icons.Filled.PhoneAndroid,
                 modifier = modifier,
             )
             //Level box
             UserInfoFieldModelComponent(
                 infoType = "Level",
-                infoContent = "13.6%",
+                infoContent = homeUiState.user?.level.toString(),
                 infoIcon = Icons.Filled.Speed,
                 modifier = modifier,
             )

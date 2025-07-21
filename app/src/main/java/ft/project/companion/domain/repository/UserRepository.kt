@@ -5,5 +5,7 @@ import kotlinx.coroutines.flow.StateFlow
 
 interface UserRepository {
 
-    suspend fun refreshUserInformation(): UserModel
+    val user: StateFlow<UserModel?>
+
+    suspend fun fetchUserInformation(refresh: Boolean = false)
 }
