@@ -11,6 +11,7 @@ import ft.project.companion.core.CompanionErrorManager
 import ft.project.companion.data.di.IoDispatcher
 import ft.project.companion.core.CompanionLogger
 import ft.project.companion.data.di.CompanionAppScope
+import ft.project.companion.domain.datasource.AuthDataStore
 import ft.project.companion.domain.result.Result
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineDispatcher
@@ -63,6 +64,7 @@ class AuthDataStoreImpl @Inject constructor(
                 )
                 val token: String? = authState.accessToken
                 val serialized: String = authState.jsonSerializeString()
+                CompanionLogger.i(msg = "---stateJsonSerializeString---: \n$serialized")
 
                 context.companionDataStore.edit { currentPreferences ->
                     _dataStoreMutex.withLock {
@@ -105,6 +107,7 @@ class AuthDataStoreImpl @Inject constructor(
             }
 
             if (stateJsonStr != null){
+                CompanionLogger.i(msg = "Fetching AuthState from DataStore ---stateJsonString---: \n$stateJsonStr")
                 return Result.Success(
                     AuthState.jsonDeserialize(stateJsonStr)
                 )

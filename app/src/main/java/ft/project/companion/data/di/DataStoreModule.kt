@@ -7,7 +7,7 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import ft.project.companion.core.CompanionErrorManager
-import ft.project.companion.data.datasource.datastore.AuthDataStore
+import ft.project.companion.domain.datasource.AuthDataStore
 import ft.project.companion.data.datasource.datastore.AuthDataStoreImpl
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope

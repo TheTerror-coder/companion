@@ -2,22 +2,20 @@ package ft.project.companion.presentation.authentication
 
 import android.content.Intent
 import android.util.Log
+import androidx.activity.result.ActivityResultLauncher
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import ft.project.companion.TAG
-import ft.project.companion.data.auth.AuthorizationRequestFactory
-import ft.project.companion.domain.repository.FortyTwoAuthRepository
 import ft.project.companion.core.CompanionErrorManager
 import ft.project.companion.core.CompanionLogger
+import ft.project.companion.domain.repository.FortyTwoAuthRepository
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import net.openid.appauth.AuthorizationRequest
-import net.openid.appauth.AuthorizationService
 import javax.inject.Inject
 
 data class AuthenticationState(
@@ -28,8 +26,6 @@ data class AuthenticationState(
 @HiltViewModel
 class AuthenticationViewModel @Inject constructor(
     private val fortyTwoAuthRepository: FortyTwoAuthRepository,
-    private val authorizationService: AuthorizationService,
-    private val authorizationRequestFactory: AuthorizationRequestFactory,
     private val errorManager: CompanionErrorManager,
 ): ViewModel() {
 
@@ -46,19 +42,14 @@ class AuthenticationViewModel @Inject constructor(
     val uiState: StateFlow<AuthenticationState>
         get() = _uiState.asStateFlow()
 
-    val authService: AuthorizationService
-        get() = authorizationService
-    val authRequest: AuthorizationRequest
-        get() = authorizationRequestFactory.create()
-
     private fun subscribeToAuthState() {
         viewModelScope.launch {
             try {
                 fortyTwoAuthRepository.authState.collect { currentAuthState ->
+                    CompanionLogger.i(
+                        msg = "collecting... -> isAuthorized = ${currentAuthState.isAuthorized}"
+                    )
                     _uiState.update { current ->
-                        CompanionLogger.i(
-                            msg = "collecting... -> isAuthorized = ${currentAuthState.isAuthorized}"
-                        )
                         current.copy(isAuthorized = currentAuthState.isAuthorized && !currentAuthState.accessToken.isNullOrEmpty())
                     }
                 }
@@ -99,6 +90,27 @@ class AuthenticationViewModel @Inject constructor(
         when(action){
             is AuthenticationUiAction.fortyTwoShieldPressed -> fortyTwoShieldPressed()
             is AuthenticationUiAction.fortyTwoShieldUnpressed -> fortyTwoShieldUnpressed()
+        }
+    }
+
+    fun launchAuthorization(
+        authActivityLauncher: ActivityResultLauncher<Intent>,
+    ){
+        viewModelScope.launch {
+            try {
+                fortyTwoAuthRepository.launchAuthorization(authActivityLauncher)
+            } catch (e: CancellationException){
+                CompanionLogger.d(
+                    msg = "Caught ${e.toString()}\nThen rethrew ${e.toString()}"
+                )
+                throw e
+            } catch (e: Exception){
+                CompanionLogger.logException(
+                    e = e,
+                    errorManager = errorManager,
+                    msg = "Something went wrong during Authorization"
+                )
+            }
         }
     }
 

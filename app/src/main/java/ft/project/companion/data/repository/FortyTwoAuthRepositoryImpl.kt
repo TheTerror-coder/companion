@@ -2,13 +2,17 @@ package ft.project.companion.data.repository
 
 import android.content.Intent
 import android.util.Log
+import androidx.activity.result.ActivityResultLauncher
 import ft.project.companion.TAG
 import ft.project.companion.core.CompanionErrorManager
 import ft.project.companion.core.CompanionLogger
-import ft.project.companion.data.datasource.datastore.AuthDataStore
+import ft.project.companion.core.copy
+import ft.project.companion.data.auth.AuthorizationRequestFactory
+import ft.project.companion.domain.datasource.AuthDataStore
 import ft.project.companion.data.di.IoDispatcher
 import ft.project.companion.domain.repository.FortyTwoAuthRepository
 import ft.project.companion.domain.repository.UserRepository
+import ft.project.companion.domain.result.Result
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -16,6 +20,8 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
 import net.openid.appauth.AuthState
 import net.openid.appauth.AuthorizationException
 import net.openid.appauth.AuthorizationResponse
@@ -23,11 +29,13 @@ import net.openid.appauth.AuthorizationService
 import net.openid.appauth.AuthorizationServiceConfiguration
 import net.openid.appauth.ClientSecretBasic
 import net.openid.appauth.TokenResponse
+import java.lang.IllegalStateException
 import javax.inject.Inject
 
 class FortyTwoAuthRepositoryImpl @Inject constructor(
     private val authorizationService: AuthorizationService,
     private val authServiceConfig: AuthorizationServiceConfiguration,
+    private val authRequestFactory: AuthorizationRequestFactory,
     private val authDataStore: AuthDataStore,
     private val userRepository: UserRepository,
     private val clientAuth: ClientSecretBasic,
@@ -35,7 +43,8 @@ class FortyTwoAuthRepositoryImpl @Inject constructor(
     @IoDispatcher private val ioDispatcher: CoroutineDispatcher,
 ): FortyTwoAuthRepository {
 
-    private val _authState = MutableStateFlow(AuthState(authServiceConfig))
+    private val _authState: MutableStateFlow<AuthState> = MutableStateFlow(AuthState(authServiceConfig))
+    private val _authStateMutex = Mutex()
 
     override val authState: StateFlow<AuthState>
         get() = _authState.asStateFlow()
@@ -47,33 +56,84 @@ class FortyTwoAuthRepositoryImpl @Inject constructor(
         )
     }
 
-    private suspend fun updateAuthState(authResponse: AuthorizationResponse?, authException: AuthorizationException?){
+    private suspend fun doUpdate(
+        authResponse: AuthorizationResponse? = null,
+        tokenResponse: TokenResponse? = null,
+        authException: AuthorizationException?
+    ){
 
-        val newAuthState = AuthState(authServiceConfig).apply {
-            update(authResponse, authException)
+        try {
+            require(authResponse != null || tokenResponse != null)
+        } catch (e: IllegalArgumentException){
+            val msg = e.localizedMessage
+            throw IllegalArgumentException("$msg\nThrown from FortyTwoAuthRepositoryImpl.doUpdate() function", e)
         }
 
-        _authState.update {
-            newAuthState
+        _authStateMutex.withLock {
+            val newAuthState = _authState.value.copy()
+            if (newAuthState == null){
+                CompanionLogger.e(
+                    msg = "Error: failed to update AuthState"
+                )
+                return
+            }
+            if (authResponse != null){
+                newAuthState.update(authResponse, authException)
+            } else {
+                newAuthState.update(tokenResponse, authException)
+            }
+            _authState.update {
+                newAuthState
+            }
+            authDataStore.saveAuthState(_authState.value)
+            CompanionLogger.d(
+                msg = "SUCCESS: updated AuthState"
+            )
         }
-        authDataStore.saveAuthState(newAuthState)
-        CompanionLogger.d(
-            msg = "update done: isAuthorized=${_authState.value.isAuthorized}"
-        )
     }
 
-    private suspend fun updateAuthState(tokenResponse: TokenResponse?, authException: AuthorizationException?){
-        val newAuthState = AuthState(authServiceConfig).apply {
-            update(tokenResponse, authException)
-        }
+    private suspend fun updateAuthState(
+        authResponse: AuthorizationResponse?,
+        authException: AuthorizationException?
+    ){
+        doUpdate(authResponse = authResponse, authException = authException)
+    }
 
-        _authState.update {
-            newAuthState
+    private suspend fun updateAuthState(
+        tokenResponse: TokenResponse?,
+        authException: AuthorizationException?
+    ){
+        doUpdate(tokenResponse = tokenResponse, authException = authException)
+    }
+
+    override suspend fun launchAuthorization(authActivityLauncher: ActivityResultLauncher<Intent>) {
+        try {
+            when (val result = authDataStore.fetchAuthState()){
+                is Result.Success -> {
+                    _authState.update {
+                        result.value
+                    }
+                    Log.d(TAG, "****************launchAuthorization: restored authState from DataStore")
+                    userRepository.fetchUserInformation(refresh = true)
+                }
+                is Result.Error -> {
+                    Log.d(TAG, "****************launchAuthorization: could not restore authState from DataStore")
+                    authActivityLauncher.launch(authorizationService.getAuthorizationRequestIntent(
+                        authRequestFactory.create()
+                    ))
+                }
+            }
+        } catch (e: IllegalStateException){
+            CompanionLogger.logException(
+                e = e,
+                errorManager = errorManager,
+                msg = "Restored AuthState from DataStore lacks Authorization response"
+            )
+            Log.i(TAG, "****************launchAuthorization: relaunching...")
+            authActivityLauncher.launch(authorizationService.getAuthorizationRequestIntent(
+                authRequestFactory.create()
+            ))
         }
-        authDataStore.saveAuthState(newAuthState)
-        CompanionLogger.d(
-            msg = "update done: isAuthorized=${_authState.value.isAuthorized}"
-        )
     }
 
     override suspend fun exchangeToken(

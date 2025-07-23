@@ -62,9 +62,7 @@ class MainActivity : ComponentActivity() {
                         onAuthUiAction = _viewModel::onAuthenticationUiAction,
                         onFortyTwoShieldClick = {
                 Log.d(TAG, "****************onFortyTwoShieldClick: lambda is entered")
-                            _authActivityLauncher.launch(_viewModel.authService.getAuthorizationRequestIntent(
-                                _viewModel.authRequest
-                            ))
+                            _viewModel.launchAuthorization(authActivityLauncher = _authActivityLauncher)
                 Log.d(TAG, "****************onFortyTwoShieldClick: lambda is exited")
                         }
                     )
