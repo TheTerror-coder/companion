@@ -21,7 +21,7 @@ import androidx.compose.ui.unit.TextUnit
 fun SingleLineTextComponent(
     text: String,
     modifier: Modifier = Modifier,
-    color: Color = MaterialTheme.colorScheme.primary,
+    color: Color = MaterialTheme.colorScheme.onPrimary,
     autoSize: TextAutoSize? = null,
     fontSize: TextUnit = TextUnit.Unspecified,
     fontStyle: FontStyle? = null,

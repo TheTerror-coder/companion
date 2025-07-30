@@ -19,12 +19,12 @@ import androidx.compose.ui.unit.dp
 @Composable
 fun StoneComponent(
     stone: ImageVector,
-    stoneColor: Color = MaterialTheme.colorScheme.onPrimary,
+    stoneColor: Color = MaterialTheme.colorScheme.primary,
     itemName: String,
     itemContent: String,
     itemUnit: String?,
     itemIcon: ImageVector?,
-    itemIconColor: Color = MaterialTheme.colorScheme.primary,
+    itemIconColor: Color = MaterialTheme.colorScheme.surface,
     modifier: Modifier,
 ) {
     Box(
@@ -44,7 +44,11 @@ fun StoneComponent(
             Box(
                 contentAlignment = Alignment.Center
             ){
-                SingleLineTextComponent(text = itemName, style = MaterialTheme.typography.titleMedium)
+                SingleLineTextComponent(
+                    text = itemName,
+                    color = MaterialTheme.colorScheme.surface,
+                    style = MaterialTheme.typography.titleMedium
+                )
             }
 
             Row(
@@ -58,10 +62,18 @@ fun StoneComponent(
                         )
                 }
 
-                SingleLineTextComponent(text = itemContent, style = MaterialTheme.typography.bodyLarge)
+                SingleLineTextComponent(
+                    text = itemContent,
+                    color = MaterialTheme.colorScheme.surface,
+                    style = MaterialTheme.typography.bodyLarge
+                )
 
                 if (itemUnit != null) {
-                    SingleLineTextComponent(text = itemUnit.toString(), style = MaterialTheme.typography.titleMedium)
+                    SingleLineTextComponent(
+                        text = itemUnit.toString(),
+                        color = MaterialTheme.colorScheme.surface,
+                        style = MaterialTheme.typography.titleMedium
+                    )
                 }
             }
         }

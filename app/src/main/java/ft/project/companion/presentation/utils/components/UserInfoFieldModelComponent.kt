@@ -31,7 +31,7 @@ fun UserInfoFieldModelComponent(
         //information type
         SingleLineTextComponent(
             text = infoType,
-            color = MaterialTheme.colorScheme.onPrimary,
+            color = MaterialTheme.colorScheme.onSurface,
             textAlign = TextAlign.Start,
             style = MaterialTheme.typography.titleMedium
         )
@@ -55,7 +55,7 @@ fun UserInfoFieldModelComponent(
             ) {
                 SingleLineTextComponent(
                     text = infoContent,
-                    color = MaterialTheme.colorScheme.onPrimary,
+                    color = MaterialTheme.colorScheme.onSurface,
                     textAlign = TextAlign.End,
                     style = MaterialTheme.typography.bodyMedium
                 )

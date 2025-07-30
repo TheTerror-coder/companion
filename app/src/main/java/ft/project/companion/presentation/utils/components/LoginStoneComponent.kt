@@ -18,7 +18,7 @@ import ft.project.companion.presentation.utils.components.companionvectorspack.m
 fun LoginStoneComponent(
     login: String,
     modifier: Modifier = Modifier,
-    stoneColor: Color = MaterialTheme.colorScheme.onPrimary
+    stoneColor: Color = MaterialTheme.colorScheme.primary
 ) {
     Box(
         modifier = modifier.fillMaxWidth(),
@@ -29,7 +29,12 @@ fun LoginStoneComponent(
             contentDescription = "",
             colorFilter = ColorFilter.tint(stoneColor)
         )
-        SingleLineTextComponent(text = login, style = MaterialTheme.typography.titleLarge, fontSize = 80.sp)
+        SingleLineTextComponent(
+            text = login,
+            color = MaterialTheme.colorScheme.surface,
+            style = MaterialTheme.typography.titleLarge,
+            fontSize = 80.sp
+        )
     }
 }
 

@@ -15,11 +15,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
 import ft.project.companion.TAG
 import ft.project.companion.presentation.authentication.AuthenticationUiAction
-import ft.project.companion.HomeRoute
 import ft.project.companion.presentation.utils.components.companionvectorspack.MyIconPack
 import ft.project.companion.presentation.utils.components.companionvectorspack.myiconpack.Fortytwo
 import ft.project.companion.presentation.utils.components.companionvectorspack.myiconpack.Shield
@@ -30,8 +29,8 @@ fun FortyTwoShieldComponent(
     modifier: Modifier = Modifier,
     authUiState: AuthenticationState,
     onAuthUiAction: (AuthenticationUiAction) -> Unit,
-    fortyTwoShieldColor: Color = MaterialTheme.colorScheme.secondary,
-    pressedFortyTwoShieldColor: Color = MaterialTheme.colorScheme.onPrimary,
+    fortyTwoShieldColor: Color = MaterialTheme.colorScheme.outline,
+    pressedFortyTwoShieldColor: Color = MaterialTheme.colorScheme.primary,
     onFortyTwoShieldClick: () -> Unit,
     onHomeNavigate: () -> Unit,
 ){
@@ -86,14 +85,18 @@ fun FortyTwoShieldComponent(
     }
 }
 
-//@Preview
-//@Composable
-//private fun Preview() {
-//    Box(
-//        modifier = Modifier
-//    ) {
-//        val viewModel: FortyTwoShieldViewModel = viewModel()
-//
-//        FortyTwoShieldComponent(viewModel = viewModel)
-//    }
-//}
+@Preview
+@Composable
+fun previewFortyTwoShieldComponent() {
+    val authUiState: AuthenticationState = AuthenticationState()
+    val onAuthUiAction: (AuthenticationUiAction) -> Unit = {}
+    val onFortyTwoShieldClick: () -> Unit = {}
+    val onHomeNavigate: () -> Unit = {}
+    
+    FortyTwoShieldComponent(
+        authUiState = authUiState,
+        onAuthUiAction = onAuthUiAction,
+        onFortyTwoShieldClick = onFortyTwoShieldClick,
+        onHomeNavigate = onHomeNavigate
+    )
+}

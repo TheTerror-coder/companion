@@ -15,10 +15,7 @@ import androidx.compose.material.icons.filled.Speed
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
 import ft.project.companion.TAG
 import ft.project.companion.presentation.utils.components.LocationStoneComponent
 import ft.project.companion.presentation.utils.components.LoginStoneComponent
@@ -32,12 +29,12 @@ fun HomeScreen(
 ) {
     Log.d(
         TAG,
-        "-----------------user: ${homeUiState.user?.login} \n" +
-                "-----------------email: ${homeUiState.user?.email} \n" +
-                "-----------------mobile: ${homeUiState.user?.mobile} \n" +
-                "-----------------wallet: ${homeUiState.user?.wallet} \n" +
-                "-----------------location: ${homeUiState.user?.location} \n" +
-                "-----------------level: ${homeUiState.user?.level} "
+        "-----------------user: ${homeUiState.user?.login}\n" +
+                "-----------------email: ${homeUiState.user?.email}\n" +
+                "-----------------mobile: ${homeUiState.user?.mobile}\n" +
+                "-----------------wallet: ${homeUiState.user?.wallet}\n" +
+                "-----------------location: ${homeUiState.user?.location}\n" +
+                "-----------------level: ${homeUiState.user?.level}"
     )
 
     Column(

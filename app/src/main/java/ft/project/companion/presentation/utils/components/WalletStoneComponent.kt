@@ -12,7 +12,7 @@ import ft.project.companion.presentation.utils.components.companionvectorspack.m
 fun WalletStoneComponent(
     walletContent: String,
     modifier: Modifier = Modifier,
-    walletStoneColor: Color = MaterialTheme.colorScheme.onPrimary,
+    walletStoneColor: Color = MaterialTheme.colorScheme.primary,
 ) {
     StoneComponent(
         stone = MyIconPack.Walletstone,

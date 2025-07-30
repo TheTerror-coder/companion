@@ -1,5 +1,6 @@
 package ft.project.companion.presentation.utils.components
 
+import android.content.res.Configuration
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.LocationOn
 import androidx.compose.material3.MaterialTheme
@@ -14,7 +15,7 @@ import ft.project.companion.presentation.utils.components.companionvectorspack.m
 fun LocationStoneComponent(
     locationContent: String,
     modifier: Modifier = Modifier,
-    locationStoneColor: Color = MaterialTheme.colorScheme.onPrimary,
+    locationStoneColor: Color = MaterialTheme.colorScheme.primary,
 ) {
     StoneComponent(
         stone = MyIconPack.Locationstone,
@@ -27,7 +28,7 @@ fun LocationStoneComponent(
     )
 }
 
-@Preview
+@Preview(showBackground = false, showSystemUi = false)
 @Composable
 fun locationPreview() {
     LocationStoneComponent("Lyon")

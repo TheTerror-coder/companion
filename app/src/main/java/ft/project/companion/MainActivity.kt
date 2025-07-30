@@ -11,10 +11,13 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.statusBarsPadding
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.toArgb
 import dagger.hilt.android.AndroidEntryPoint
 import ft.project.companion.presentation.authentication.AuthenticationViewModel
 import ft.project.companion.ui.theme.CompanionTheme
@@ -44,13 +47,13 @@ class MainActivity : ComponentActivity() {
 
         }
 
-
         setContent {
             CompanionTheme (
-                dynamicColor = false
+                dynamicColor = false,
+                window = this.window
             ) {
                 Surface (
-//                    color = MaterialTheme.colorScheme.background,
+                    color = MaterialTheme.colorScheme.surface,
                     modifier = Modifier
                         .fillMaxSize()
                         .statusBarsPadding(),
