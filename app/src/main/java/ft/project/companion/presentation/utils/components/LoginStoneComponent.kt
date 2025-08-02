@@ -3,6 +3,8 @@ package ft.project.companion.presentation.utils.components
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.sizeIn
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -27,7 +29,9 @@ fun LoginStoneComponent(
         Image(
             imageVector = MyIconPack.Loginstone,
             contentDescription = "",
-            colorFilter = ColorFilter.tint(stoneColor)
+            colorFilter = ColorFilter.tint(stoneColor),
+            modifier = modifier
+                .fillMaxWidth(0.8f)
         )
         SingleLineTextComponent(
             text = login,

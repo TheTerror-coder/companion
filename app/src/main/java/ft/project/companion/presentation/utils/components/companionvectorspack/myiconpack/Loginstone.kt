@@ -23,16 +23,16 @@ public val MyIconPack.Loginstone: ImageVector
         if (_loginstone != null) {
             return _loginstone!!
         }
-        _loginstone = Builder(name = "Loginstone", defaultWidth = 350.0.dp, defaultHeight =
-                283.0.dp, viewportWidth = 350.0f, viewportHeight = 283.0f).apply {
+        _loginstone = Builder(name = "Loginstone", defaultWidth = 369.0.dp, defaultHeight =
+                267.0.dp, viewportWidth = 369.0f, viewportHeight = 267.0f).apply {
             path(fill = SolidColor(Color(0xFF000000)), stroke = null, strokeLineWidth = 0.0f,
                     strokeLineCap = Butt, strokeLineJoin = Miter, strokeLineMiter = 4.0f,
                     pathFillType = EvenOdd) {
-                moveTo(175.0f, 283.0f)
-                curveTo(271.65f, 283.0f, 350.0f, 212.68f, 350.0f, 125.93f)
-                curveTo(350.0f, 39.18f, 334.09f, -46.1f, 175.0f, 28.7f)
-                curveTo(68.18f, 56.48f, 0.0f, 39.18f, 0.0f, 125.93f)
-                curveTo(0.0f, 212.68f, 78.35f, 283.0f, 175.0f, 283.0f)
+                moveTo(175.0f, 267.0f)
+                curveTo(271.65f, 267.0f, 369.0f, 229.25f, 369.0f, 142.5f)
+                curveTo(369.0f, 55.75f, 347.0f, -32.04f, 175.0f, 12.7f)
+                curveTo(68.18f, 40.48f, 0.0f, 23.18f, 0.0f, 109.93f)
+                curveTo(0.0f, 196.68f, 78.35f, 267.0f, 175.0f, 267.0f)
                 close()
             }
         }
