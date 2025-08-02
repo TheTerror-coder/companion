@@ -4,7 +4,10 @@ import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
@@ -37,7 +40,11 @@ fun FortyTwoShieldComponent(
     val pressed = authUiState.fortyTwoShieldIsPressed
     val authorized = authUiState.isAuthorized
 
-    var currentFortyTwoShieldColor = remember (pressed, pressedFortyTwoShieldColor, fortyTwoShieldColor) {
+    var currentFortyTwoShieldColor = remember(
+        pressed,
+        pressedFortyTwoShieldColor,
+        fortyTwoShieldColor
+    ) {
         if (pressed) pressedFortyTwoShieldColor else fortyTwoShieldColor
     }
 
@@ -50,14 +57,16 @@ fun FortyTwoShieldComponent(
     Box(
         modifier = modifier
             .padding(10.dp)
-            .wrapContentSize(),
+            .widthIn(100.dp, 500.dp)
+            .fillMaxWidth(0.8f),
         contentAlignment = Alignment.Center
     ) {
         Image(
             imageVector = MyIconPack.Shield,
             contentDescription = "shield icon",
             colorFilter = ColorFilter.tint(currentFortyTwoShieldColor),
-            modifier = modifier
+            modifier = Modifier
+                .fillMaxWidth()
                 .pointerInput(Unit){
                     detectTapGestures(
                         onPress = {
@@ -88,15 +97,10 @@ fun FortyTwoShieldComponent(
 @Preview
 @Composable
 fun previewFortyTwoShieldComponent() {
-    val authUiState: AuthenticationState = AuthenticationState()
-    val onAuthUiAction: (AuthenticationUiAction) -> Unit = {}
-    val onFortyTwoShieldClick: () -> Unit = {}
-    val onHomeNavigate: () -> Unit = {}
-    
     FortyTwoShieldComponent(
-        authUiState = authUiState,
-        onAuthUiAction = onAuthUiAction,
-        onFortyTwoShieldClick = onFortyTwoShieldClick,
-        onHomeNavigate = onHomeNavigate
+        authUiState = AuthenticationState(),
+        onAuthUiAction = { },
+        onFortyTwoShieldClick = {},
+        onHomeNavigate = {}
     )
 }

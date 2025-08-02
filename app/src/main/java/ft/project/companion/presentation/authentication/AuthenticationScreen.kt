@@ -2,10 +2,13 @@ package ft.project.companion.presentation.authentication
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.adaptive.currentWindowAdaptiveInfo
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.constraintlayout.compose.ConstraintLayout
 import ft.project.companion.presentation.utils.components.FortyTwoShieldComponent
 import ft.project.companion.utils.ScreenSpaceConfig
 
@@ -27,12 +30,22 @@ fun AuthenticationScreen(
         screenSpaceConfig == ScreenSpaceConfig.TABLET_LANDSCAPE ||
         screenSpaceConfig == ScreenSpaceConfig.DESKTOP
             -> {
-                Column (
-                    verticalArrangement = Arrangement.Center,
-                    horizontalAlignment = Alignment.CenterHorizontally
+                ConstraintLayout(
+                    modifier = modifier
+                        .fillMaxSize()
                 ) {
+                    val fortyTwoShieldComponent = createRef()
 
                     FortyTwoShieldComponent(
+                        modifier = Modifier
+                            .constrainAs(fortyTwoShieldComponent){
+                                linkTo(
+                                    start = parent.start,
+                                    top = parent.top,
+                                    end = parent.end,
+                                    bottom = parent.bottom
+                                )
+                            },
                         authUiState = authUiState,
                         onAuthUiAction = onAuthUiAction,
                         onFortyTwoShieldClick = onFortyTwoShieldClick,
@@ -41,4 +54,15 @@ fun AuthenticationScreen(
                 }
             }
     }
+}
+
+@Preview
+@Composable
+private fun Preview(){
+    AuthenticationScreen(
+        authUiState = AuthenticationState(),
+        onAuthUiAction = {},
+        onHomeNavigate = {},
+        onFortyTwoShieldClick = {}
+    )
 }

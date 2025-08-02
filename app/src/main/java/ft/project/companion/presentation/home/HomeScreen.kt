@@ -91,7 +91,7 @@ private fun homeContent(
 
 /*Top Container*/
     Column(
-        modifier = modifier
+        modifier = Modifier
             .fillMaxWidth()
             .fillMaxHeight(topContainerHeightRelativeValue),
         verticalArrangement = Arrangement.spacedBy(
@@ -101,21 +101,23 @@ private fun homeContent(
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Column(
-            modifier = modifier,
+            modifier = Modifier
+                .fillMaxWidth(),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             //42 user image
             Box(
-                modifier = modifier
-                    .fillMaxSize()
+                modifier = Modifier
+                    .fillMaxWidth(),
+                contentAlignment = Alignment.Center
             ) {
                 AsyncImage(
                     model = homeUiState.user?.profilePictureLink?.toUri(),
                     contentDescription = "user profile picture",
                     modifier = Modifier
-                        .fillMaxWidth(0.3f)
                         .widthIn(100.dp, 150.dp)
+                        .fillMaxWidth(0.3f)
                 )
             }
             //user login
@@ -124,28 +126,28 @@ private fun homeContent(
 
         //user wallet & location
         Row (
-            modifier = modifier
+            modifier = Modifier
                 .fillMaxWidth()
         ) {
             Box(
-                modifier = modifier
+                modifier = Modifier
                     .fillMaxWidth(0.5f)
                     .padding(horizontal = 5.dp, vertical = 2.dp),
                 contentAlignment = Alignment.CenterStart,
             ) {
                 WalletStoneComponent(
-                    modifier = modifier,
+                    modifier = Modifier,
                     walletContent = homeUiState.user?.wallet.toString(),
                 )
             }
             Box(
-                modifier = modifier
+                modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 5.dp, vertical = 2.dp),
                 contentAlignment = Alignment.CenterEnd,
             ) {
                 LocationStoneComponent(
-                    modifier = modifier,
+                    modifier = Modifier,
                     locationContent = homeUiState.user?.location.toString(),
                 )
             }
@@ -155,7 +157,7 @@ private fun homeContent(
 /*Bottom Container*/
     //user email & mobile & level
     Column(
-        modifier = modifier
+        modifier = Modifier
             .fillMaxSize(),
         horizontalAlignment = Alignment.Start,
         verticalArrangement = Arrangement.spacedBy(
@@ -168,21 +170,21 @@ private fun homeContent(
             infoType = "Email",
             infoContent = homeUiState.user?.email.toString(),
             infoIcon = Icons.Filled.Email,
-            modifier = modifier,
+            modifier = Modifier,
         )
         //Mobile box
         UserInfoFieldModelComponent(
             infoType = "Mobile",
             infoContent = homeUiState.user?.mobile.toString(),
             infoIcon = Icons.Filled.PhoneAndroid,
-            modifier = modifier,
+            modifier = Modifier,
         )
         //Level box
         UserInfoFieldModelComponent(
             infoType = "Level",
             infoContent = homeUiState.user?.level.toString(),
             infoIcon = Icons.Filled.Speed,
-            modifier = modifier,
+            modifier = Modifier,
         )
     }
 }
