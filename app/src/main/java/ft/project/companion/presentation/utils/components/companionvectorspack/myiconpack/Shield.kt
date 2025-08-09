@@ -23,25 +23,25 @@ public val MyIconPack.Shield: ImageVector
         if (_shield != null) {
             return _shield!!
         }
-        _shield = Builder(name = "Shield", defaultWidth = 299.0.dp, defaultHeight = 369.0.dp,
-                viewportWidth = 299.0f, viewportHeight = 369.0f).apply {
+        _shield = Builder(name = "Shield", defaultWidth = 648.0.dp, defaultHeight = 798.0.dp,
+                viewportWidth = 648.0f, viewportHeight = 798.0f).apply {
             path(fill = SolidColor(Color(0x00000000)), stroke = SolidColor(Color(0xFF000000)),
-                    strokeLineWidth = 20.48f, strokeLineCap = Round, strokeLineJoin =
+                    strokeLineWidth = 44.4103f, strokeLineCap = Round, strokeLineJoin =
                     StrokeJoin.Companion.Round, strokeLineMiter = 4.0f, pathFillType = NonZero) {
-                moveTo(288.61f, 201.87f)
-                curveTo(288.61f, 288.62f, 227.89f, 332.0f, 155.71f, 357.16f)
-                curveTo(151.93f, 358.44f, 147.82f, 358.38f, 144.08f, 356.99f)
-                curveTo(71.73f, 332.0f, 11.0f, 288.62f, 11.0f, 201.87f)
-                verticalLineTo(80.41f)
-                curveTo(11.0f, 75.81f, 12.83f, 71.4f, 16.08f, 68.14f)
-                curveTo(19.34f, 64.89f, 23.75f, 63.06f, 28.35f, 63.06f)
-                curveTo(63.05f, 63.06f, 106.43f, 42.24f, 136.62f, 15.87f)
-                curveTo(140.3f, 12.73f, 144.97f, 11.0f, 149.81f, 11.0f)
-                curveTo(154.64f, 11.0f, 159.32f, 12.73f, 162.99f, 15.87f)
-                curveTo(193.36f, 42.41f, 236.56f, 63.06f, 271.26f, 63.06f)
-                curveTo(275.87f, 63.06f, 280.28f, 64.89f, 283.53f, 68.14f)
-                curveTo(286.79f, 71.4f, 288.61f, 75.81f, 288.61f, 80.41f)
-                verticalLineTo(201.87f)
+                moveTo(625.0f, 436.89f)
+                curveTo(625.0f, 625.02f, 493.31f, 719.08f, 336.79f, 773.64f)
+                curveTo(328.6f, 776.41f, 319.69f, 776.28f, 311.58f, 773.26f)
+                curveTo(154.69f, 719.08f, 23.0f, 625.02f, 23.0f, 436.89f)
+                verticalLineTo(173.52f)
+                curveTo(23.0f, 163.54f, 26.96f, 153.97f, 34.02f, 146.91f)
+                curveTo(41.08f, 139.86f, 50.65f, 135.89f, 60.63f, 135.89f)
+                curveTo(135.88f, 135.89f, 229.94f, 90.74f, 295.4f, 33.55f)
+                curveTo(303.38f, 26.74f, 313.52f, 23.0f, 324.0f, 23.0f)
+                curveTo(334.48f, 23.0f, 344.62f, 26.74f, 352.6f, 33.55f)
+                curveTo(418.44f, 91.12f, 512.13f, 135.89f, 587.38f, 135.89f)
+                curveTo(597.35f, 135.89f, 606.92f, 139.86f, 613.98f, 146.91f)
+                curveTo(621.04f, 153.97f, 625.0f, 163.54f, 625.0f, 173.52f)
+                verticalLineTo(436.89f)
                 close()
             }
         }

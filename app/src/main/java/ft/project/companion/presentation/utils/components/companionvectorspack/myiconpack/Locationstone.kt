@@ -23,24 +23,31 @@ public val MyIconPack.Locationstone: ImageVector
         if (_locationstone != null) {
             return _locationstone!!
         }
-        _locationstone = Builder(name = "Locationstone", defaultWidth = 178.0.dp, defaultHeight =
-                122.0.dp, viewportWidth = 178.0f, viewportHeight = 122.0f).apply {
+        _locationstone = Builder(name = "Locationstone", defaultWidth = 630.0.dp, defaultHeight =
+                480.0.dp, viewportWidth = 630.0f, viewportHeight = 480.0f).apply {
             path(fill = SolidColor(Color(0xFF000000)), stroke = null, strokeLineWidth = 0.0f,
                     strokeLineCap = Butt, strokeLineJoin = Miter, strokeLineMiter = 4.0f,
                     pathFillType = NonZero) {
-                moveTo(26.85f, 21.72f)
-                curveTo(38.16f, 11.01f, 53.06f, 5.35f, 68.48f, 3.15f)
-                lineTo(77.74f, 1.83f)
-                curveTo(86.28f, 0.62f, 94.94f, 0.54f, 103.5f, 1.62f)
-                lineTo(112.91f, 2.8f)
-                curveTo(132.13f, 5.21f, 150.79f, 12.91f, 162.45f, 28.39f)
-                curveTo(173.44f, 42.96f, 183.25f, 62.19f, 174.75f, 77.56f)
-                curveTo(166.23f, 92.96f, 120.79f, 112.48f, 103.64f, 119.41f)
-                curveTo(99.3f, 121.17f, 94.68f, 122.0f, 90.01f, 122.0f)
-                verticalLineTo(122.0f)
-                curveTo(85.46f, 122.0f, 80.96f, 121.21f, 76.73f, 119.54f)
-                curveTo(59.7f, 112.85f, 13.91f, 93.72f, 3.47f, 77.56f)
-                curveTo(-7.9f, 59.96f, 10.97f, 36.74f, 26.85f, 21.72f)
+                moveTo(131.85f, 45.43f)
+                curveTo(145.62f, 31.97f, 162.72f, 22.65f, 181.13f, 16.99f)
+                lineTo(216.07f, 6.23f)
+                curveTo(229.5f, 2.1f, 243.47f, 0.0f, 257.52f, 0.0f)
+                horizontalLineTo(318.86f)
+                horizontalLineTo(398.73f)
+                curveTo(411.99f, 0.0f, 425.19f, 1.87f, 437.93f, 5.56f)
+                lineTo(471.57f, 15.31f)
+                curveTo(494.81f, 22.04f, 516.01f, 34.52f, 531.46f, 53.14f)
+                curveTo(573.22f, 103.44f, 651.31f, 213.4f, 624.53f, 305.14f)
+                curveTo(613.51f, 342.92f, 536.52f, 393.83f, 493.83f, 431.33f)
+                curveTo(487.2f, 437.15f, 462.2f, 444.18f, 453.82f, 446.97f)
+                verticalLineTo(446.97f)
+                curveTo(425.04f, 456.54f, 391.08f, 480.0f, 360.75f, 480.0f)
+                horizontalLineTo(284.86f)
+                curveTo(254.61f, 480.0f, 225.7f, 464.43f, 200.59f, 447.55f)
+                curveTo(187.95f, 439.05f, 171.44f, 429.91f, 150.24f, 421.47f)
+                curveTo(136.48f, 415.99f, 121.36f, 414.65f, 107.25f, 410.14f)
+                curveTo(60.55f, 395.23f, 8.75f, 339.11f, 2.34f, 305.14f)
+                curveTo(-16.76f, 203.89f, 85.88f, 90.38f, 131.85f, 45.43f)
                 close()
             }
         }

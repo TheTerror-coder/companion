@@ -1,11 +1,8 @@
 package ft.project.companion.presentation.authentication
 
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.adaptive.currentWindowAdaptiveInfo
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.constraintlayout.compose.ConstraintLayout
@@ -34,11 +31,11 @@ fun AuthenticationScreen(
                     modifier = modifier
                         .fillMaxSize()
                 ) {
-                    val fortyTwoShieldComponent = createRef()
+                    val fortyTwoShieldComponentRef = createRef()
 
                     FortyTwoShieldComponent(
                         modifier = Modifier
-                            .constrainAs(fortyTwoShieldComponent){
+                            .constrainAs(fortyTwoShieldComponentRef){
                                 linkTo(
                                     start = parent.start,
                                     top = parent.top,

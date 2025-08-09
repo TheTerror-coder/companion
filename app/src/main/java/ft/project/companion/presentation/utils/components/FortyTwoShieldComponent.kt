@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
@@ -26,6 +27,7 @@ import ft.project.companion.presentation.utils.components.companionvectorspack.M
 import ft.project.companion.presentation.utils.components.companionvectorspack.myiconpack.Fortytwo
 import ft.project.companion.presentation.utils.components.companionvectorspack.myiconpack.Shield
 import ft.project.companion.presentation.authentication.AuthenticationState
+import ft.project.companion.presentation.utils.ui.MeasureDefaults
 
 @Composable
 fun FortyTwoShieldComponent(
@@ -58,7 +60,7 @@ fun FortyTwoShieldComponent(
         modifier = modifier
             .padding(10.dp)
             .widthIn(100.dp, 500.dp)
-            .fillMaxWidth(0.8f),
+            .fillMaxWidth(MeasureDefaults.FRACTION_7F),
         contentAlignment = Alignment.Center
     ) {
         Image(
@@ -89,6 +91,8 @@ fun FortyTwoShieldComponent(
         Image(
             imageVector = MyIconPack.Fortytwo,
             contentDescription = "42 icon",
+            modifier = Modifier
+                .fillMaxWidth(MeasureDefaults.FRACTION_7F),
             colorFilter = ColorFilter.tint(currentFortyTwoShieldColor)
         )
     }
@@ -97,10 +101,16 @@ fun FortyTwoShieldComponent(
 @Preview
 @Composable
 fun previewFortyTwoShieldComponent() {
-    FortyTwoShieldComponent(
-        authUiState = AuthenticationState(),
-        onAuthUiAction = { },
-        onFortyTwoShieldClick = {},
-        onHomeNavigate = {}
-    )
+    Surface(
+        modifier = Modifier
+            .width(300.dp)
+    ) {
+        FortyTwoShieldComponent(
+            authUiState = AuthenticationState(),
+            onAuthUiAction = { },
+            onFortyTwoShieldClick = {},
+            onHomeNavigate = {}
+        )
+
+    }
 }

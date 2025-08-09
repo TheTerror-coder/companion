@@ -23,24 +23,24 @@ public val MyIconPack.Walletstone: ImageVector
         if (_walletstone != null) {
             return _walletstone!!
         }
-        _walletstone = Builder(name = "Walletstone", defaultWidth = 137.0.dp, defaultHeight =
-                122.0.dp, viewportWidth = 137.0f, viewportHeight = 122.0f).apply {
+        _walletstone = Builder(name = "Walletstone", defaultWidth = 588.0.dp, defaultHeight =
+                480.0.dp, viewportWidth = 588.0f, viewportHeight = 480.0f).apply {
             path(fill = SolidColor(Color(0xFF000000)), stroke = null, strokeLineWidth = 0.0f,
                     strokeLineCap = Butt, strokeLineJoin = Miter, strokeLineMiter = 4.0f,
                     pathFillType = NonZero) {
-                moveTo(33.54f, 11.99f)
-                curveTo(40.55f, 4.35f, 50.44f, 0.0f, 60.81f, 0.0f)
-                horizontalLineTo(79.78f)
-                curveTo(91.13f, 0.0f, 101.85f, 5.21f, 108.86f, 14.13f)
-                lineTo(128.57f, 39.2f)
-                curveTo(139.36f, 52.92f, 139.09f, 72.32f, 127.93f, 85.74f)
-                lineTo(108.85f, 108.67f)
-                curveTo(101.82f, 117.11f, 91.4f, 122.0f, 80.41f, 122.0f)
-                horizontalLineTo(60.19f)
-                curveTo(50.18f, 122.0f, 40.61f, 117.95f, 33.64f, 110.77f)
-                lineTo(11.32f, 87.78f)
-                curveTo(-2.33f, 73.72f, -2.65f, 51.45f, 10.6f, 37.0f)
-                lineTo(33.54f, 11.99f)
+                moveTo(183.35f, 20.83f)
+                curveTo(195.53f, 7.56f, 212.71f, 0.0f, 230.73f, 0.0f)
+                horizontalLineTo(380.66f)
+                curveTo(400.38f, 0.0f, 419.01f, 9.05f, 431.2f, 24.55f)
+                lineTo(573.84f, 205.91f)
+                curveTo(592.59f, 229.76f, 592.13f, 263.48f, 572.71f, 286.8f)
+                lineTo(431.17f, 456.84f)
+                curveTo(418.96f, 471.51f, 400.85f, 480.0f, 381.75f, 480.0f)
+                horizontalLineTo(229.65f)
+                curveTo(212.27f, 480.0f, 195.63f, 472.96f, 183.52f, 460.5f)
+                lineTo(18.29f, 290.35f)
+                curveTo(-5.45f, 265.91f, -6.0f, 227.19f, 17.04f, 202.09f)
+                lineTo(183.35f, 20.83f)
                 close()
             }
         }
